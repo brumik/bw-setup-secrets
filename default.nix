@@ -18,5 +18,5 @@ buildGoApplication {
   pwd = ./.;
   src = ./.;
   modules = ./gomod2nix.toml;
-  runtimeInputs = [ pkgs.bitwarden-cli ];
+  packages = [ pkgs.bitwarden-cli ];
 }
