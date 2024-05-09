@@ -1,3 +1,15 @@
 schema = 3
 
 [mod]
+  [mod."github.com/pelletier/go-toml/v2"]
+    version = "v2.2.2"
+    hash = "sha256-ukxk1Cfm6cQW18g/aa19tLcUu5BnF7VmfAvrDHAOl6A="
+  [mod."golang.org/x/crypto"]
+    version = "v0.23.0"
+    hash = "sha256-6hZjb/OazWFBef0C/aH63l49YQnzCh2vpIduzyfSSG8="
+  [mod."golang.org/x/sys"]
+    version = "v0.20.0"
+    hash = "sha256-mowlaoG2k4n1c1rApWef5EMiXd3I77CsUi8jPh6pTYA="
+  [mod."golang.org/x/term"]
+    version = "v0.20.0"
+    hash = "sha256-kU+OVJbYktTIn4ZTAdomsOjL069Vj45sdroEMRKaRDI="
