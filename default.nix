@@ -1,4 +1,4 @@
-{ pkgs ? (
+{ lib, pkgs ? (
     let
       inherit (builtins) fetchTree fromJSON readFile;
       inherit ((fromJSON (readFile ./flake.lock)).nodes) nixpkgs gomod2nix;
@@ -18,5 +18,13 @@ buildGoApplication {
   pwd = ./.;
   src = ./.;
   modules = ./gomod2nix.toml;
-  packages = [ pkgs.bitwarden-cli ];
+  nativeBuildInputs = [ 
+    pkgs.makeWrapper
+  ];
+
+  postFixup = ''
+    wrapProgram "$out/bin/bw-setup-secrets" --set PATH ${lib.makeBinPath [
+      pkgs.bitwarden-cli
+    ]}
+  '';
 }
