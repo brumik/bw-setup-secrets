@@ -65,6 +65,7 @@ func readPassword() string {
     fmt.Println("Error: could not read the password")  
     panic(err)
   }
+  fmt.Println("Password entered.")
   return string(passwd)
 }
 
@@ -124,12 +125,12 @@ func main() {
 
   for _, value := range cfg.Toml.Files {
     fileMods, _ := strconv.ParseUint(value.Chmod, 8, 32)
+    destPath := cfg.HomePath + value.DestFile;
 
-    // TODO: Provede the --output flag with paht and set the chmod later
-    // This will be hopefully faster
-    content, err := exec.Command(
+    _, err := exec.Command(
       "bw", "get", "attachment", value.SrcFile,
       "--itemid", cfg.Toml.NoteId,
+      "--output", destPath,
       "--raw", "--session", cfg.Session,
     ).Output()
     if err != nil {
@@ -137,8 +138,9 @@ func main() {
       panic(err)
     }
 
-    writeToFile(cfg.HomePath + value.DestFile, content, os.FileMode(fileMods))
-    fmt.Println("Written " + cfg.HomePath + value.DestFile)
+
+    os.Chmod(destPath, os.FileMode(fileMods))
+    fmt.Println("Written " + destPath)
   }
 
   cmd = exec.Command("bw", "lock", "--session", cfg.Session)
